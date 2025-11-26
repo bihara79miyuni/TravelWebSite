@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="js/script.js"></script>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>about</title>
@@ -8,6 +9,72 @@
         .feature-box {
     background-color: #ffffff;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    body {
+      background: #f5f7fb;
+      font-family: Arial, sans-serif;
+    }
+
+    .reviews-section {
+      max-width: 700px;
+      margin: 60px auto;
+    }
+
+    .review-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 25px 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .review-badge {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #0d6efd;
+    }
+
+    .review-package {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .review-text {
+      font-size: 0.98rem;
+      margin-top: 12px;
+      color: #444;
+    }
+
+    .reviewer-name {
+      font-weight: 600;
+      margin-top: 12px;
+    }
+
+    .reviewer-meta {
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    .stars {
+      margin-top: 8px;
+      font-size: 1.1rem;
+      color: #ffc107;
+    }
+
+    .fade-enter {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    .fade-enter-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
     </style>
 </head>
@@ -71,7 +138,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="p-3 rounded shadow-sm about-image-box">
-                        <!-- You can replace this with your own image -->
+           
                         <img src="../assets/aboutimg1.jpg" 
                              alt="Travel with GlobalGaze" class="img-fluid rounded">
                     </div>
@@ -159,6 +226,128 @@
             </div>
         </div>
     </section>
+
+<section class="reviews-section">
+  <h3 class="text-center mb-4">Traveller Reviews</h3>
+
+  <div class="review-card" id="reviewCard">
+    <div class="d-flex justify-content-between align-items-center mb-1">
+      <span class="review-badge">Verified Traveller</span>
+      <span class="review-package" id="reviewPackage">Maldives Getaway</span>
+    </div>
+
+    <div class="stars" id="reviewStars">
+     
+    </div>
+
+    <p class="review-text" id="reviewText">
+      
+    </p>
+
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <div>
+        <div class="reviewer-name" id="reviewerName">John Doe</div>
+        <div class="reviewer-meta" id="reviewerMeta">Couple trip • Jan 2024</div>
+      </div>
+      <div class="text-right">
+        <small id="reviewCountry">From United Kingdom</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+
+  const reviews = [
+    {
+      package: "Maldives Getaway",
+      rating: 5,
+      text: "Absolutely magical! The ocean villa, food and service were beyond our expectations. We even got a surprise candlelight dinner by the beach.",
+      name: "Isuru & Nethmi",
+      meta: "Honeymoon trip • Aug 2024",
+      country: "From Sri Lanka"
+    },
+    {
+      package: "Swiss Mountain Escape",
+      rating: 4,
+      text: "The scenery was unreal. Perfect mix of guided tours and free time. Only wish we had one extra night in Zurich.",
+      name: "Amelia Wright",
+      meta: "Solo trip • Feb 2024",
+      country: "From United Kingdom"
+    },
+    {
+      package: "Tokyo City Adventure",
+      rating: 5,
+      text: "Super organized! Hotel was right next to the metro, guides were friendly, and we loved the food tour in Shibuya.",
+      name: "Kavindu Perera",
+      meta: "Friends trip • May 2024",
+      country: "From Australia"
+    },
+    {
+      package: "Bali Tropical Escape",
+      rating: 4,
+      text: "Great value for money. The private pool villa and day trips to waterfalls were the highlight of our holiday.",
+      name: "Sahan & Family",
+      meta: "Family trip • Dec 2023",
+      country: "From UAE"
+    }
+  ];
+
+  let currentIndex = 0;
+
+  const reviewCard   = document.getElementById("reviewCard");
+  const pkgElement   = document.getElementById("reviewPackage");
+  const starsElement = document.getElementById("reviewStars");
+  const textElement  = document.getElementById("reviewText");
+  const nameElement  = document.getElementById("reviewerName");
+  const metaElement  = document.getElementById("reviewerMeta");
+  const countryElement = document.getElementById("reviewCountry");
+
+  
+  function renderStars(rating) {
+    let stars = "";
+    for (let i = 0; i < 5; i++) {
+      if (i < rating) {
+        stars += "★";  
+      } else {
+        stars += "☆";  
+      }
+    }
+    return stars;
+  }
+
+  
+  function showReview(index) {
+    const r = reviews[index];
+
+   
+    reviewCard.classList.remove("fade-enter-active");
+    reviewCard.classList.add("fade-enter");
+
+   
+    setTimeout(() => {
+      pkgElement.textContent = r.package;
+      starsElement.textContent = renderStars(r.rating);
+      textElement.textContent = r.text;
+      nameElement.textContent = r.name;
+      metaElement.textContent = r.meta;
+      countryElement.textContent = r.country;
+
+    
+      reviewCard.classList.remove("fade-enter");
+      reviewCard.classList.add("fade-enter-active");
+    }, 50);
+  }
+
+
+  showReview(currentIndex);
+
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % reviews.length;
+    showReview(currentIndex);
+  }, 3000); // 3000ms 
+</script>
+   
 
     
         
